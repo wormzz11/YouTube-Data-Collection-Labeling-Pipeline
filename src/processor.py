@@ -23,5 +23,3 @@ def processing(response):
             processed_data.append(video_data)
     return processed_data
             
-
-print(processing(testData))

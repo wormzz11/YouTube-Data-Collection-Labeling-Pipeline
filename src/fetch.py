@@ -24,6 +24,7 @@ def title_fetcher(query, quantity):
     )
     response = request.execute()
     print("Succesfuly fetched data from {} videos".format(quantity))
+    return response
 
     
     
