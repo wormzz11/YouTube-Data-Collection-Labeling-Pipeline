@@ -1,0 +1,18 @@
+[project]
+name = "video-labeling-project"
+version = "0.1.0"
+description = "ML pipeline for labeling YouTube data"
+requires-python = ">=3.10"
+
+dependencies = [
+    "requests",
+    "streamlit",
+    "google-api-python-client"
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

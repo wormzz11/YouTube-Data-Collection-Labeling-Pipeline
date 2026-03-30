@@ -50,3 +50,6 @@ def quick_inspection():
     res = cur.execute("Select * FROM yt_rel")
     print(res.fetchall())
     con.close()
+
+def  load_next_video():
+    pass
