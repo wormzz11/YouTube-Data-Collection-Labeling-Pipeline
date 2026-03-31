@@ -40,34 +40,30 @@ def insert_evaluation(evaluation):
             """, (evaluation[1], evaluation[0])) 
         
  
-    
-
 def evaluation_count():
     with sqlite3.connect("data/database.db") as con:
         cur = con.cursor()
         cur.execute("""        
-        Select
-            SUM(
-                CASE WHEN RELEVANT IS NOT NULL THEN  1  ELSE 0 END),
-            SUM(
-                CASE WHEN RELEVANT IS NULL THEN 1 ELSE 0 END)        
+        SELECT
+            COALESCE(SUM(CASE WHEN relevant IS NOT NULL THEN 1 ELSE 0 END), 0),
+            COALESCE(SUM(CASE WHEN relevant IS NULL THEN 1 ELSE 0 END), 0)
         FROM yt_rel      
         """)
         result = cur.fetchone()
-        print("Non Nulls:", result[0], "Nulls:", result[1])
-        return result
+        return result   
+
 
 def load_next_video():
     with sqlite3.connect("data/database.db") as con:
-        con.row_factory =  sqlite3.Row
+        con.row_factory = sqlite3.Row
         cur = con.cursor()
-    
-        cur.execute("""SELECT id, videoId, title, thumbnail 
-        FROM yt_rel
-        WHERE relevant IS NULL
-        ORDER BY id ASC
-        LIMIT 1
-        """)    
+        cur.execute("""
+            SELECT id, videoId, title, thumbnail, relevant
+            FROM yt_rel
+            WHERE relevant IS NULL
+            ORDER BY id ASC
+            LIMIT 1
+        """)
         return cur.fetchone()
     
 import sqlite3
@@ -77,3 +73,27 @@ def reset_database():
         cur = con.cursor()
         cur.execute("UPDATE yt_rel SET relevant = NULL")
         con.commit()
+
+def load_adjacent_video(current_id, direction="next"):
+    """Load the next or previous video relative to current_id."""
+    with sqlite3.connect("data/database.db") as con:
+        con.row_factory = sqlite3.Row
+        cur = con.cursor()
+        if direction == "next":
+            cur.execute("""
+                SELECT id, videoId, title, thumbnail, relevant
+                FROM yt_rel
+                WHERE id > ?
+                ORDER BY id ASC
+                LIMIT 1
+            """, (current_id,))
+        else:
+            cur.execute("""
+                SELECT id, videoId, title, thumbnail, relevant
+                FROM yt_rel
+                WHERE id < ?
+                ORDER BY id DESC
+                LIMIT 1
+            """, (current_id,))
+        return cur.fetchone()
+ 
