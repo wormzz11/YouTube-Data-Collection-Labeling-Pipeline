@@ -1,4 +1,3 @@
+from src.database import evaluation_count
 
-from src.database import reset_database
-reset_database()
-
+print(evaluation_count())
