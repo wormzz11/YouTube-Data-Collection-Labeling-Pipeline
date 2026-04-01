@@ -29,7 +29,12 @@ def db_creator():
         """)
         con.commit()
 
-def insert_videos(videos):
+def insert_videos(videos, theme=None):
+    """
+    Insert a list of video dicts into yt_rel.
+    If theme is provided, the inserted rows will have that theme value.
+    Each video dict should contain keys: videoId, title, thumbnail.
+    """
     with sqlite3.connect(DB_PATH) as con:
         cur = con.cursor()
         for video in videos:
@@ -38,9 +43,11 @@ def insert_videos(videos):
             thumbnail = video.get("thumbnail")
             cur.execute("""
                 INSERT OR IGNORE INTO yt_rel(videoId, title, thumbnail, relevant, theme)
-                VALUES(?, ?, ?, NULL, NULL)
-            """, (videoId, title, thumbnail))
+                VALUES(?, ?, ?, NULL, ?)
+            """, (videoId, title, thumbnail, theme))
         con.commit()
+
+
 
 def insert_evaluation(evaluation):
     videoId, relevancy, theme = evaluation

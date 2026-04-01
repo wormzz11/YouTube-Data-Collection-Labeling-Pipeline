@@ -18,47 +18,47 @@ st.markdown(
     """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
-html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; background-color: #0d0f12; color: #e8e6e1; }
+html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; background-color: #0d0f12; color: #e8e6e1; font-size: 1rem; }
 .stApp { background-color: #0d0f12; } #MainMenu, footer, header { visibility: hidden; }
 .block-container { padding: 3rem 2rem 4rem; max-width: 720px; }
 .eval-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 1px solid #1e2129; }
-.eval-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.08em; text-transform: uppercase; color: #c8f560; }
-.eval-badge { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #5a5f6e; letter-spacing: 0.05em; }
-.theme-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #5a5f6e; margin-bottom: 0.4rem; }
-.theme-active { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #c8f560; margin-top: 0.35rem; margin-bottom: 1.5rem; }
-.theme-empty { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #3a3f4e; margin-top: 0.35rem; margin-bottom: 1.5rem; }
-.stTextInput > div > div > input { background: #13161c !important; border: 1px solid #1e2129 !important; border-radius: 4px !important; color: #e8e6e1 !important; font-family: 'DM Sans', sans-serif !important; font-size: 0.9rem !important; padding: 0.55rem 0.85rem !important; }
+.eval-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: 0.08em; text-transform: uppercase; color: #c8f560; }
+.eval-badge { font-family: 'DM Mono', monospace; font-size: 0.88rem; color: #5a5f6e; letter-spacing: 0.05em; }
+.theme-label { font-family: 'DM Mono', monospace; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em; color: #5a5f6e; margin-bottom: 0.4rem; }
+.theme-active { font-family: 'DM Mono', monospace; font-size: 0.9rem; color: #c8f560; margin-top: 0.35rem; margin-bottom: 1.5rem; }
+.theme-empty { font-family: 'DM Mono', monospace; font-size: 0.9rem; color: #3a3f4e; margin-top: 0.35rem; margin-bottom: 1.5rem; }
+.stTextInput > div > div > input { background: #13161c !important; border: 1px solid #1e2129 !important; border-radius: 4px !important; color: #e8e6e1 !important; font-family: 'DM Sans', sans-serif !important; font-size: 1rem !important; padding: 0.6rem 0.9rem !important; }
 .stTextInput > div > div > input:focus { border-color: #c8f560 !important; box-shadow: 0 0 0 1px rgba(200, 245, 96, 0.2) !important; }
 .stTextInput label { display: none !important; }
 .progress-wrap { margin-bottom: 2rem; }
 .progress-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
-.progress-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #5a5f6e; }
-.progress-count { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: #c8f560; }
+.progress-label { font-family: 'DM Mono', monospace; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em; color: #5a5f6e; }
+.progress-count { font-family: 'DM Mono', monospace; font-size: 0.9rem; color: #c8f560; }
 .progress-bar-bg { background: #1a1d24; border-radius: 2px; height: 4px; width: 100%; overflow: hidden; }
 .progress-bar-fill { background: #c8f560; height: 100%; border-radius: 2px; transition: width 0.5s ease; }
 .video-card { background: #13161c; border: 1px solid #1e2129; border-radius: 8px; overflow: hidden; margin-bottom: 1.25rem; }
 .video-card img { width: 100%; display: block; }
 .video-card-body { padding: 1.25rem 1.5rem; }
-.video-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.5rem; line-height: 1.35; color: #e8e6e1; margin: 0; }
+.video-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.6rem; line-height: 1.35; color: #e8e6e1; margin: 0; }
 .video-meta { display: flex; gap: 0.6rem; margin-top: 0.5rem; align-items: center; flex-wrap: wrap; }
-.video-id { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: #3a3f4e; }
-.label-badge { font-family: 'DM Mono', monospace; font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 3px; }
+.video-id { font-family: 'DM Mono', monospace; font-size: 0.82rem; color: #3a3f4e; }
+.label-badge { font-family: 'DM Mono', monospace; font-size: 0.82rem; padding: 0.2rem 0.6rem; border-radius: 3px; }
 .label-relevant { background: rgba(200, 245, 96, 0.12); color: #c8f560; border: 1px solid rgba(200, 245, 96, 0.3); }
 .label-irrelevant { background: rgba(255, 95, 95, 0.1); color: #ff5f5f; border: 1px solid rgba(255, 95, 95, 0.25); }
 .label-unlabeled { background: rgba(90, 95, 110, 0.15); color: #5a5f6e; border: 1px solid #1e2129; }
-.theme-badge { font-family: 'DM Mono', monospace; font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 3px; background: rgba(255, 255, 255, 0.04); color: #8888aa; border: 1px solid #2a2d36; }
-.theme-eval-badge { font-family: 'DM Mono', monospace; font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 3px; background: rgba(200, 245, 96, 0.06); color: #8aaa55; border: 1px solid rgba(200, 245, 96, 0.2); }
-.stButton > button { font-family: 'DM Sans', sans-serif !important; font-weight: 500 !important; font-size: 0.88rem !important; letter-spacing: 0.03em !important; border-radius: 4px !important; padding: 0.65rem 1rem !important; height: auto !important; transition: all 0.15s ease !important; width: 100% !important; }
+.theme-badge { font-family: 'DM Mono', monospace; font-size: 0.82rem; padding: 0.2rem 0.6rem; border-radius: 3px; background: rgba(255, 255, 255, 0.04); color: #8888aa; border: 1px solid #2a2d36; }
+.theme-eval-badge { font-family: 'DM Mono', monospace; font-size: 0.82rem; padding: 0.2rem 0.6rem; border-radius: 3px; background: rgba(200, 245, 96, 0.06); color: #8aaa55; border: 1px solid rgba(200, 245, 96, 0.2); }
+.stButton > button { font-family: 'DM Sans', sans-serif !important; font-weight: 500 !important; font-size: 1rem !important; letter-spacing: 0.03em !important; border-radius: 4px !important; padding: 0.7rem 1rem !important; height: auto !important; transition: all 0.15s ease !important; width: 100% !important; }
 div[data-testid="stHorizontalBlock"]:nth-of-type(1) div[data-testid="column"]:nth-child(1) .stButton > button { background: #c8f560 !important; color: #0d0f12 !important; border: 2px solid #c8f560 !important; }
 div[data-testid="stHorizontalBlock"]:nth-of-type(1) div[data-testid="column"]:nth-child(1) .stButton > button:hover { background: #d8ff72 !important; border-color: #d8ff72 !important; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(200, 245, 96, 0.25) !important; }
 div[data-testid="stHorizontalBlock"]:nth-of-type(1) div[data-testid="column"]:nth-child(2) .stButton > button { background: transparent !important; color: #5a5f6e !important; border: 2px solid #1e2129 !important; }
 div[data-testid="stHorizontalBlock"]:nth-of-type(1) div[data-testid="column"]:nth-child(2) .stButton > button:hover { border-color: #ff5f5f !important; color: #ff5f5f !important; transform: translateY(-1px); }
-div[data-testid="stHorizontalBlock"]:nth-of-type(2) .stButton > button { background: transparent !important; color: #5a5f6e !important; border: 2px solid #1e2129 !important; font-size: 0.8rem !important; }
+div[data-testid="stHorizontalBlock"]:nth-of-type(2) .stButton > button { background: transparent !important; color: #5a5f6e !important; border: 2px solid #1e2129 !important; font-size: 0.92rem !important; }
 div[data-testid="stHorizontalBlock"]:nth-of-type(2) .stButton > button:hover { border-color: #3a3f4e !important; color: #e8e6e1 !important; transform: translateY(-1px); }
 .done-state { text-align: center; padding: 5rem 2rem; }
 .done-icon { font-size: 3rem; margin-bottom: 1rem; }
-.done-title { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: #c8f560; margin-bottom: 0.5rem; }
-.done-sub { color: #5a5f6e; font-size: 0.9rem; }
+.done-title { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: #c8f560; margin-bottom: 0.5rem; }
+.done-sub { color: #5a5f6e; font-size: 1rem; }
 </style>
 """,
     unsafe_allow_html=True,
