@@ -50,8 +50,9 @@ This project provides a complete pipeline for collecting YouTube video metadata,
 
 ## Data Flow 
 <div style="display: flex; gap: 20px;">
- <img width="700" height="800" alt="image" src="https://github.com/user-attachments/assets/c55f1382-b5cd-4ecb-a451-0fe99d82290a" />
+ <img width="700" height="800" alt="image" src="https://github.com/user-attachments/assets/29cc2098-87e3-4376-ac8c-5dd913e8c147" />
  <img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/424ca832-dfab-4bd9-8ae4-b9eac6f2a979" />
+
 
 </div>
 
