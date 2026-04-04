@@ -152,10 +152,10 @@ st.markdown("""
 
 st.markdown('<div class="section">', unsafe_allow_html=True)
 st.markdown('<p class="section-title">Export</p>', unsafe_allow_html=True)
-st.markdown('<p class="section-sub">Export labeled data for a theme to CSV or Excel</p>', unsafe_allow_html=True)
+st.markdown('<p class="section-sub">Export labeled data for a theme to CSV or Excel. *all only requires theme for naming the exported file</p>', unsafe_allow_html=True)
 
 export_theme = st.text_input("Theme", placeholder="e.g. dogs", key="export_theme")
-export_mode = st.selectbox("Mode", options=["labeled", "unlabeled", "all"], key="export_mode")
+export_mode = st.selectbox("Mode", options=["labeled", "all unlabeled", "all labeled"], key="export_mode")
 export_format = st.selectbox("File format", options=["csv", "xlsx"], key="export_format")
 
 if st.button("Export", key="btn_export"):

@@ -51,35 +51,32 @@ def insert_videos(videos, theme=None):
 
 def insert_evaluation(evaluation):
     videoId, relevancy, theme = evaluation
+
     with sqlite3.connect(DB_PATH) as con:
         cur = con.cursor()
-        if theme is None:
-            cur.execute("SELECT id FROM yt_rel WHERE videoId = ? AND theme IS NULL", (videoId,))
-            existing = cur.fetchone()
-            if existing:
-                cur.execute("UPDATE yt_rel SET relevant = ?, updated_at = CURRENT_TIMESTAMP WHERE videoId = ? AND theme IS NULL",
-                            (relevancy, videoId))
-            else:
-                cur.execute("""
-                    INSERT INTO yt_rel(videoId, title, thumbnail, relevant, theme)
-                    VALUES(?, ?, ?, ?, NULL)
-                """, (videoId, None, None, relevancy))
-        else:
-            cur.execute("UPDATE yt_rel SET relevant = ?, updated_at = CURRENT_TIMESTAMP WHERE videoId = ? AND theme = ?",
-                        (relevancy, videoId, theme))
-            if cur.rowcount == 0:
-                cur.execute("""
-                    INSERT INTO yt_rel(videoId, title, thumbnail, relevant, theme)
-                    SELECT videoId, title, thumbnail, ?, ?
-                    FROM yt_rel
-                    WHERE videoId = ? AND theme IS NULL
-                """, (relevancy, theme, videoId))
-                cur.execute("SELECT id FROM yt_rel WHERE videoId = ? AND theme = ?", (videoId, theme))
-                if cur.fetchone() is None:
-                    cur.execute("""
-                        INSERT INTO yt_rel(videoId, title, thumbnail, relevant, theme)
-                        VALUES(?, ?, ?, ?, ?)
-                    """, (videoId, None, None, relevancy, theme))
+
+        # Get base video info (title, thumbnail)
+        cur.execute("""
+            SELECT title, thumbnail
+            FROM yt_rel
+            WHERE videoId = ? AND theme IS NULL
+            LIMIT 1
+        """, (videoId,))
+        row = cur.fetchone()
+
+        title = row[0] if row else None
+        thumbnail = row[1] if row else None
+
+        # Insert or update in ONE step
+        cur.execute("""
+            INSERT INTO yt_rel(videoId, title, thumbnail, relevant, theme)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(videoId, theme)
+            DO UPDATE SET
+                relevant = excluded.relevant,
+                updated_at = CURRENT_TIMESTAMP
+        """, (videoId, title, thumbnail, relevancy, theme))
+
         con.commit()
 
 def evaluation_count(theme=None):

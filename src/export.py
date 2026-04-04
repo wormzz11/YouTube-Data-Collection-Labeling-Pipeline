@@ -4,29 +4,28 @@ DB_PATH = "data/database.db"
 
 def export(theme, mode, file_format):
     with sqlite3.connect(DB_PATH) as con:
-        if mode  == "labeled":
+        if mode == "labeled":
             query = "SELECT * FROM yt_rel WHERE THEME = ? AND RELEVANT IS NOT NULL"
-            
-        elif mode  == "unlabeled": 
-            query =  "SELECT * FROM yt_rel WHERE THEME = ? AND RELEVANT IS NULL"
+            df = pd.read_sql_query(query, con, params=(theme,))
 
-        elif mode == "all":
-            query = "SELECT * FROM yt_rel WHERE THEME = ?"
-    
+        elif mode == "all unlabeled":
+            query = "SELECT * FROM yt_rel WHERE RELEVANT IS NULL"
+            df = pd.read_sql_query(query, con)
+
+        elif mode == "all labeled":
+            query = "SELECT * FROM yt_rel WHERE relevant IS NOT NULL"
+            df = pd.read_sql_query(query, con)
+
         else:
             raise ValueError("Invalid mode")
-        
-        df = pd.read_sql_query(query , con, params=(theme,))
-        df = df.drop(columns=["updated_at", "id"], errors="ignore")
 
-        if file_format == "csv":
-            df.to_csv(f"data/exports/{theme}_{mode}.csv", index=False)
+    df = df.drop(columns=["updated_at", "id"], errors="ignore")
 
-        elif  file_format  =="xlsx":
-            df.to_excel(f"data/exports/{theme}_{mode}.xlsx", index=False)
+    if file_format == "csv":
+        df.to_csv(f"data/exports/{theme}_{mode}.csv", index=False)
 
-
-export("meow", "labeled", "xlsx")
+    elif file_format == "xlsx":
+        df.to_excel(f"data/exports/{theme}_{mode}.xlsx", index=False)
 
     
 
