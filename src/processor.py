@@ -25,3 +25,23 @@ def processing(response):
             processed_data.append(video_data)
     return processed_data
             
+
+import sqlite3
+
+DB_PATH = "data/database.db"
+
+with sqlite3.connect(DB_PATH) as con:
+    cur = con.cursor()
+    cur.execute("""
+        UPDATE yt_rel AS target
+        SET description = (
+            SELECT source.description
+            FROM yt_rel AS source
+            WHERE source.videoId = target.videoId
+              AND source.theme IS NULL
+            LIMIT 1
+        )
+        WHERE target.theme IS NOT NULL
+          AND target.description IS NULL;
+    """)
+    con.commit()

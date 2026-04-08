@@ -52,19 +52,23 @@ def insert_evaluation(evaluation):
     with sqlite3.connect(DB_PATH) as con:
         cur = con.cursor()
         cur.execute("""
-            SELECT title, thumbnail FROM yt_rel WHERE videoId = ? AND theme IS NULL LIMIT 1
+            SELECT title, thumbnail, description FROM yt_rel WHERE videoId = ? AND theme IS NULL LIMIT 1
         """, (videoId,))
         row = cur.fetchone()
-        title = row[0] if row else None
-        thumbnail = row[1] if row else None
+
+        if row:
+            title, thumbnail, description = row
+        else:
+            title, thumbnail, description = None, None, None
         cur.execute("""
-            INSERT INTO yt_rel(videoId, title, thumbnail, relevant, theme)
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO yt_rel(videoId, title, thumbnail, relevant, theme, description)
+            VALUES (?, ?, ?, ?, ?, ?)
             ON CONFLICT(videoId, theme)
             DO UPDATE SET
                 relevant = excluded.relevant,
                 updated_at = CURRENT_TIMESTAMP
-        """, (videoId, title, thumbnail, relevancy, theme))
+                description = COALESCE(yt_rel.description, excluded.description),
+        """, (videoId, title, thumbnail, relevancy, theme, description))
         con.commit()
 
 
