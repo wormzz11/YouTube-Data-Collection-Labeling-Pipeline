@@ -10,6 +10,7 @@ dependencies = [
     "google-api-python-client",
     "pandas",
     "openpyxl"
+    "python-dotenv"
 ]
 
 [build-system]
